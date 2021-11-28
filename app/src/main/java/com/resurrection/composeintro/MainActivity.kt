@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.resurrection.composeintro.ui.theme.ComposeIntroTheme
 import com.resurrection.composeintro.ui.theme.cGreen
 import com.resurrection.composeintro.ui.theme.cRed
 
@@ -44,23 +45,40 @@ class MainActivity : ComponentActivity() {
         setContent {
             var myString = remember { mutableStateOf("") }
 
-            /* ComposeIntroTheme { Surface { DefaultPreview() } } */
-            Column {
+            ComposeIntroTheme {
+                Surface {
 
-                Spacer(modifier = Modifier.padding(top = 80.dp))
+                    Scaffold(topBar = { AppBar() }) {
 
-                SpecialTextField(value = myString.value) {
-                    myString.value = it
+                    }
+
+                    Column {
+                        Spacer(modifier = Modifier.padding(top = 80.dp))
+                        SpecialTextField(value = myString.value) {
+                            myString.value = it
+                        }
+                    }
                 }
-
             }
-
-
         }
     }
 
 
 }
+
+@Composable
+fun AppBar() {
+    TopAppBar(
+        contentPadding = PaddingValues(10.dp),
+        backgroundColor = Color.Red,
+        elevation = 25.dp,
+        modifier = Modifier.size(width = 150.dp, height = 50.dp)
+    ) {
+        Text(text = "Main Activity")
+    }
+
+}
+
 
 @Composable
 fun SpecialTextField(value: String, onValueChange: (String) -> Unit) {
